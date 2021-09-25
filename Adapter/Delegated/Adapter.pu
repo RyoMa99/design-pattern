@@ -1,0 +1,26 @@
+@startuml Adapter
+class Main {
+}
+
+abstract class Print {
+  + {abstract} printWeak() : void
+  + {abstract} printString() : void
+}
+
+class PrintBanner {
+  - banner : Banner
+  + printWeak() : void
+  + printString() : void
+}
+
+class Banner {
+  - string : String
+  + showWithParen() : void
+  + showWithAster() : void
+}
+
+Main ..> Print : Uses >
+Print <|-right- PrintBanner
+PrintBanner -right-o Banner
+
+@enduml
