@@ -29,9 +29,9 @@
     + getName() : String
   }
 
-  Aggregate <.. BookShelf
-  Iterator <.. BookShelfIterator
-  Aggregate -right-> Iterator : creates >
+  Aggregate <|.. BookShelf
+  Iterator <|.. BookShelfIterator
+  Aggregate .right.> Iterator : creates >
   BookShelf o-right- BookShelfIterator
   Book o-up- BookShelf
 @enduml
