@@ -1,0 +1,37 @@
+@startuml Iterator
+  interface Aggregate {
+    + {abstract} iterator() : Iterator
+  }
+
+  interface Iterator {
+    + {abstract} hasNext() : boolean
+    + {abstract} next() : Object
+  }
+
+  class BookShelf {
+    - books : Book[]
+    - last : int
+    + getBookAt(int index) : Book
+    + appendBook(Book book) : void
+    + getLength() : int
+    + iterotor() : Iterator
+  }
+
+  class BookShelfIterator {
+    - bookShelf : BookShelf
+    - index : int
+    + hasNext() : boolean
+    + next() : Book
+  }
+
+  class Book {
+    - name : String
+    + getName() : String
+  }
+
+  Aggregate <.. BookShelf
+  Iterator <.. BookShelfIterator
+  Aggregate -right-> Iterator : creates >
+  BookShelf o-right- BookShelfIterator
+  Book o-up- BookShelf
+@enduml
