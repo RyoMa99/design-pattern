@@ -1,0 +1,33 @@
+@startuml TemplateMethod
+
+class Main {
+}
+
+abstract class AbstractDisplay {
+  # {abstract} open() : void
+  # {abstract} print() : void
+  # {abstract} close() : void
+  + display() : void
+}
+
+class CharDisplay {
+  - ch : char
+  # open() : void
+  # print() : void
+  # close() : void
+}
+
+class StringDisplay {
+  - str : String
+  - width : int
+  # open() : void
+  # print() : void
+  # close() : void
+  - printLine() : void
+}
+
+Main ..> AbstractDisplay : Uses
+AbstractDisplay <|-- CharDisplay
+AbstractDisplay <|-- StringDisplay
+
+@enduml
