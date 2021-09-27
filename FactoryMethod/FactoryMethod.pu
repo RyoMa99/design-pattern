@@ -1,0 +1,33 @@
+@startuml FactoryMethod
+package Framework {
+  abstract class Factory {
+    + create(String owner) : Product
+    # {abstract} createProduct(String owner) : Product
+    # {abstract} registerProduct(Product product) : void
+  }
+
+  abstract class Product {
+    + {abstract} use() : void
+  }
+}
+
+package IdCard {
+  class IdCardFactory {
+    - owners : List<String>
+    # createProduct(String owner) : Product
+    # registerProduct(Product product) : void
+    + getOwners() : List<String>
+  }
+
+  class IdCard {
+    - owner : String
+    + use() : void
+    + getOwner() : String
+  }
+}
+
+Factory <|-- IdCardFactory
+Product <|-- IdCard
+Factory .right.> Product : creates
+IdCardFactory .right.> IdCard : creates
+@enduml
