@@ -1,0 +1,31 @@
+@startuml Prototype
+
+class Manager {
+  - showcase 
+  + register(String name, Product proto): void
+  + create(String protoname): Product
+}
+
+interface Product {
+  + {abstract} use(String s): void 
+  + {abstract}createClone(): Product
+}
+
+class MessageBox {
+  - decochar: char
+  + MessageBox(char decochar): void
+  + use(String s): void
+  + createClone(): Product
+}
+
+class UnderlinePen {
+  - ulchar: char
+  + UnderlinePen(char ulchar): void
+  + use(String s): void
+  + createClone(): Product
+}
+
+Manager ..> Product: Uses >
+Product <|.. UnderlinePen
+Product <|.. MessageBox
+@enduml
