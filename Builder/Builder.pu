@@ -1,0 +1,37 @@
+@startuml Builder
+abstract Builder {
+  + {abstract} makeTitle(String title): void
+  + {abstract} makeString(String str): void
+  + {abstract} makeItems(String[] items): void
+  + {abstract} close(): void
+}
+
+class Director {
+  - builder: Builder
+  + Director(Builder builder)
+  + constract(): void
+}
+
+class TextBuilder {
+  - buffer: StringBuffer
+  + makeTitle(String title): void
+  + makeString(String str): void
+  + makeItems(String[] items): void
+  + close(): void
+  + getResult(): String
+}
+
+class HTMLBuilder {
+  - filename: String
+  - writer: PrintWriter
+  + makeTitle(String title): void
+  + makeString(String str): void
+  + makeItems(String[] items): void
+  + close(): void
+  + getResult(): String
+}
+
+Builder o-left- Director
+Builder <-down- TextBuilder
+Builder <-down- HTMLBuilder
+@enduml
