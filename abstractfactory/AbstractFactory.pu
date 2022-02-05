@@ -1,0 +1,70 @@
+@startuml AbstractFactory
+Package factory {
+
+  abstract Item {
+    # caption: String
+    + Item(String caption): void
+    + {abstract} makeHTML(): String
+  }
+
+  abstract Link extends Item{
+    # url: String
+    + Link(String caption, String url): void
+  }
+
+  abstract Tray extends Item{
+    # tray: ArrayList
+    + Tray(String caption): void
+    + add(Item item): void
+  }
+
+  abstract Page {
+    # title: String
+    # author: String
+    # content: ArrayList
+    + Page(String title, String author): void
+    + add(Item item): void
+    + output(): void
+    + {abstract} makeHTML(): String
+  }
+
+  abstract Factory {
+    + {static} getFactory(String classname): Factory
+    + {abstract} createLink(String caption, String url): Link
+    + {abstract} createTray(String caption): Tray
+    + {abstract} createPage(String title, String author): Page
+  }
+}
+
+Package listfactory {
+
+  class ListFactory extends Factory {
+    + createLink(String caption, String url): public
+    + createTray(String caption): Tray
+    + createPage(String title, String author): Page
+  }
+
+  class ListLink extends Link {
+    + ListLink(String caption, String url): void
+    + makeHTML(): String
+  }
+
+  class ListTray extends Tray {
+    + ListTray(String caption): void
+    + makeHTML(): String
+  }
+
+  class ListPage extends Page {
+    + ListPage(String title, String author): void
+    + makeHTML(): String
+  }
+}
+
+Factory -up-> Link: creates
+Factory -up-> Tray: creates
+Item    --*   Tray
+Factory -up-> Page: creates
+ListFactory -up-> ListLink: creates
+ListFactory -up-> ListTray: creates
+ListFactory -up-> ListPage: creates
+@enduml
