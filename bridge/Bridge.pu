@@ -1,0 +1,38 @@
+@startuml Bridge
+Package func {
+  class Display {
+    - impl: DisplayImpl
+    + Display(DisplayImpl impl): void
+    + open(): void
+    + print(): void
+    + close(): void
+    + display(): void
+  }
+
+  class CountDisplay extends Display {
+    + CountDisplay(DisplayImpl impl): void
+    + multiDisplay(int times): void
+  }
+}
+
+Package impl {
+  abstract DisplayImpl{
+    + {abstract} rawOpen(): void
+    + {abstract} rawPrint(): void
+    + {abstract} rawClose(): void
+  }
+
+  class StringDisplayImpl extends DisplayImpl{
+    - string: String
+    - width: int
+    + StringDisplayImpl(String string): void
+    +  rawOpen(): void
+    +  rawPrint(): void
+    +  rawClose(): void
+    - printLine(): void
+  }
+
+Display -right-o DisplayImpl
+}
+
+@enduml
