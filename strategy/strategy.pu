@@ -1,0 +1,41 @@
+@startuml Strategy 
+interface Strategy {
+  + {abstract} nextHand(): Hand
+  + {abstract} study(boolean win): void
+}
+
+class WinningStrategy implements Strategy {
+  - random: Random
+  - won: boolean
+  - prevHand: Hand
+  + WinningStrategy(int seed): void
+  + nextHand(): Hand
+  + study(boolean win): won
+}
+
+class ProbStrategy implements Strategy {
+  - random: Random
+  - prevHandvalue: int
+  - currentHandvalue: int
+  - history: int[][]
+  + ProbStrategy(int seed): void
+  + nextHand(): Hand
+  + study(boolean win): won
+}
+
+class Player {
+  - name: String 
+  - strategy: Strategy
+  - wincount: int
+  - losecount: int
+  - gamecount: int
+  + Player(String name, Strategy strategy): void
+  + nextHand(): Hand
+  + win(): void
+  + lose(): void
+  + even(): void
+  + toString(): String
+}
+
+Player -right-o Strategy
+@enduml
