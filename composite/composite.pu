@@ -1,0 +1,31 @@
+@startuml Composite 
+abstract Entry {
+  + {abstract} getName(): String 
+  + {abstract} getSize(): int 
+  + add(Entry entry): Entry 
+  + printList(): void 
+  # {abstract} printList(String prefix): void 
+  + toString(): String
+}
+
+class File extends Entry {
+  - name: String
+  - size: int
+  + File(String name, int size): void 
+  + getName(): String 
+  + getSize(): int 
+  # printList(String prefix): void 
+}
+
+class Directory extends Entry {
+  - name: String
+  - directory: Entry[]
+  + Directory(String name): void 
+  + getName(): String 
+  + getSize(): int 
+  + add(Entry entity): Entry
+  # printList(String prefix): void 
+}
+
+Directory --o Entry
+@enduml
