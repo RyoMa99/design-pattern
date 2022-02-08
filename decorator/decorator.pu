@@ -1,0 +1,38 @@
+@startuml Decorator
+abstract Display {
+  + {abstract} getColumns(): int
+  + {abstract} getRows(): int
+  + {abstract} getRowText(int row): String
+  + show(): void
+}
+
+class StringDisplay extends Display {
+  - string: String
+  + StringDisplay(String string): void
+  + getColumns(): int
+  + getRows(): int
+  + getRowText(int row): String
+}
+
+abstract Border extends Display {
+  # display: Display
+  # Border(Display display): void
+}
+
+class SideBorder extends Border {
+  - char borderChar;
+  + SideBorder(Display display, char ch): void
+  + getColumns(): int
+  + getRows(): int
+  + getRowText(int row)
+}
+
+class FullBorder extends Border {
+  + FullBorder(Display display): void
+  + getColumns(): int
+  + getRows(): int
+  + getRowText(int row)
+}
+
+Border --o Display
+@enduml
