@@ -1,0 +1,51 @@
+@startuml Visitor
+abstract Visitor {
+  + {abstract} visit(File file): void
+  + {abstract} visit(Directory directory): void
+}
+
+class ListVisitor extends Visitor {
+  - currentdir: String
+  + visit(File file): void
+  + visit(Directory directory): void
+}
+
+interface Element {
+  + {abstract} accept(Visitor v): void
+}
+
+abstract Entry implements Element {
+  + {abstract} getName(): String
+  + {abstract} getSize(): int
+  + add(Entry entry): Entry
+  + toString(): String
+}
+
+class File extends Entry {
+  - name: String
+  - dir: ArrayList<Entry>
+  + Directory(String name): void
+  + getName(): String
+  + getSize(): int
+  + add(Entry entry): Entry
+  + iterator(): Iterator
+  + accept(Visitor v): void
+}
+
+class Directory extends Entry {
+  - name: String
+  - size: int
+  + File(String name, int size): void
+  + getName(): String
+  + getSize(): int
+  + accept(Visitor v): void
+}
+
+class Main {}
+
+Visitor -[hidden]right- Element
+Directory -up-o Entry
+Main -up-> ListVisitor: Uses
+Main -up-> File: Uses
+Main -up-> Directory: Uses
+@enduml
