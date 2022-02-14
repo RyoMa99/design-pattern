@@ -1,0 +1,46 @@
+@startuml ChainOfResponsibility
+class Trouble {
+  - number: int 
+  + Trouble(int number): void
+  + getNumber(): int 
+  + tostring(): String
+}
+
+abstract Support {
+  - name: String 
+  - next: Support 
+  + Support(Support support): void
+  + {final} support(Trouble trouble): void
+  + toString(): String 
+  # {abstract} resolve(Trouble trouble): boolean
+  # done(Trouboe trouble): void
+  # fail(Trouble trouble): void
+}
+
+class NoSupport extends Support {
+  + NoSupport(String name): void
+  # resolve(Trouble trouble): boolean
+}
+
+class LimitSupport extends Support {
+  - limit: int
+  + LimitSupport(String name, int limit): void
+  # resolve(Trouble trouble): boolean
+}
+
+class OddSupport extends Support {
+  + OddSupport(String name): void
+  # resolve(Trouble trouble): boolean
+}
+
+class SpecialSupport extends Support {
+  - number: int
+  + SpecialSupport(String name, int number): void
+  # resolve(Trouble trouble): boolean
+}
+
+class Main {}
+
+Main -right-> Support: Request
+Support --o Support
+@enduml
