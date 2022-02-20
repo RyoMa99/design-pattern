@@ -1,0 +1,28 @@
+@startuml Facade
+
+class Main {}
+
+class PageMaker {
+  - PageMaker(): void
+  + {static} makewelcomePage(String mailaddr, String filename): void
+}
+
+class Database {
+  - Database(): void
+  + {static} getProperties(String dbname): Properties
+}
+
+class HtmlWriter {
+  - writer: Writer 
+  + HtmlWriter(Writer writer): void 
+  + title(String title): void 
+  + paragraph(String msg): void
+  + link(String href, String caption): void 
+  + mailto(String mailaddr, String username): void
+  + close(): void
+}
+
+Main --> PageMaker: Uses
+PageMaker --> HtmlWriter: Uses
+PageMaker --> Database: Uses
+@enduml
