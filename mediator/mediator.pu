@@ -1,0 +1,51 @@
+@startuml Mediator
+interface Mediator {
+  + {abstract} createColleagues(): void
+  + {abstract} colleagueChanged(): void
+}
+
+interface Colleague{
+  + {abstract} setMediator(Mediator mediator): void
+  + {abstract} setColleagueEnabled(boolean enabled): void
+}
+
+class ColleagueButton implements Colleague {
+  - mediator: Mediator
+  + ColleagueButton(String caption): void
+  + setMediator(Mediator mediator): void
+  + setColleagueEnabled(boolean enabled): void
+}
+
+class ColleagueTextField implements Colleague {
+  - mediator: Mediator
+  + ColleagueTextField(String text, int columns): void
+  + setMediator(Mediator mediator): void
+  + setColleagueEnabled(boolean enabled): void
+  + textValueChanged(TextEvent e): void
+}
+
+class ColleagueCheckbox implements Colleague {
+  - mediator: Mediator
+  + ColleagueCheckbox(String caption, CheckboxGroup group, boolean state): void
+  + setMediator(Mediator mediator): void
+  + setColleagueEnabled(boolean enabled): void
+  + itemStateChanged(ItemEvent e): void
+}
+
+class LoginFrame implements Mediator {
+  - ColleagueCheckbox checkGuest;
+  - ColleagueCheckbox checkLogin;
+  - ColleagueTextField textUser;
+  - ColleagueTextField textPass;
+  - ColleagueButton buttonOk;
+  - ColleagueButton buttonCancel;
+  + LoginFrame(String title): void
+  + createColleagues(): void
+  + colleagueChanged(): void
+}
+
+Mediator o-- Colleague
+LoginFrame --o ColleagueButton
+LoginFrame --o ColleagueTextField
+LoginFrame --o ColleagueCheckbox
+@enduml
