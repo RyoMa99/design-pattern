@@ -1,0 +1,32 @@
+@startuml Observer
+interface Observer{
+  + {abstract} update(NumberGenerator generator): void
+}
+
+abstract NumberGenerator{
+  - observers: ArrayList
+  + addObserver(Observer observer): void
+  + deleteObserver(Observer observer): void
+  + notifyObservers(): void
+  + {abstract} getNumber(): int
+  + {abstract} execute(): void
+}
+
+class RandomNumberGenerator extends NumberGenerator{
+  - random: Random
+  - number: int
+  + getNumber(): int
+  + execute(): void
+}
+
+class DigitObserver implements Observer {
+  + update(NumberGenerator generator): void
+}
+
+class GraphObserver implements Observer {
+  + update(NumberGenerator generator): void
+}
+
+
+NumberGenerator o-right- Observer
+@enduml
