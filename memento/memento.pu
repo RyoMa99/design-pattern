@@ -1,0 +1,30 @@
+@startuml Memento
+class Main{}
+
+class Gamer{
+  - money: int
+  - fruits: List 
+  - random: Random
+  - {static} fruitsname: String[]
+  + Gamer(int money): void
+  + getMoney(): int
+  + bet(): void
+  + createMemento(): Memento
+  + restoreMemento(Memento memento): void
+  + getFruit(): String
+}
+
+class Memento{
+  money: int
+  fruits: ArrayList
+  + getMoney(): int
+  Memento(int money): void
+  addFruit(String fruit): void
+  getFruits(): List
+}
+
+Main -right> Gamer: Requests
+Gamer --> Memento: Creates
+Main --o Memento
+
+@enduml
