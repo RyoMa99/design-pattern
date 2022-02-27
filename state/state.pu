@@ -1,0 +1,47 @@
+@startuml State
+interface State {
+  + {abstract} doClock(Context context, int hour): void
+  + {abstract} doUse(Context context): void
+  + {abstract} doAlarm(Context context): void
+  + {abstract} doPhone(Context context): void
+}
+
+class DayState implements State {
+  - {static} singleton: DayState
+  - DayState()
+  + {static} getInstance(): State
+  + doClock(Context context, int hour): void
+  + doUSe(Context context): void
+  + doAlarm(Context context): void
+  + doPhone(Context context): void
+}
+
+class NightState implements State {
+  - {static} singleton: NightState
+  - NightState()
+  + {static} getInstance(): State
+  + doClock(Context context, int hour): void
+  + doUSe(Context context): void
+  + doAlarm(Context context): void
+  + doPhone(Context context): void
+}
+
+interface Context {
+  + {abstract} setClock(int hour): void
+  + {abstract} changeState(State state): void
+  + {abstract} callSeurityCenter(String msg): void
+  + {abstract} recordLog(String msg): void
+}
+
+class SafeFrame implements Context{
+  - state: State
+  + SafeFrame(String title): void
+  + setClock(int hour): void
+  + changeState(State state): void
+  + callSecurityCenter(String msg): void
+  + recordLog(String msg): void
+}
+
+SafeFrame -right-o State
+
+@enduml
