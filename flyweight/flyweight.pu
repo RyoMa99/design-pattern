@@ -1,0 +1,25 @@
+@startuml Flyweight
+class BigChar{
+  - charname: char
+  - fontdata: String 
+  + print(): void 
+}
+
+class BigCharFactory{
+  - pool: Hashmap<BigChar>
+  - singleton: BigCharFactory
+  - BigCharFactory(): void 
+  + {static}getInstance(): BigCharFactory
+  + getBigChar(): BigChar
+}
+
+class BigString{
+  - bigChars: BigChar[]
+  + print(): void
+}
+
+BigCharFactory -up-o BigChar: Creates
+BigString -up-o BigChar: Uses
+BigString -up-> BigCharFactory: Uses
+
+@enduml
