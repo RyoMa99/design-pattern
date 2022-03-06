@@ -1,0 +1,53 @@
+@startuml Interpreter
+abstract Node{
+  + {abstract} parse(Context context): void
+}
+
+class ProgramNode extends Node{
+  - commandListNode: Node
+  + parse(Context context): void
+}
+
+class CommandListNode extends Node{
+  - list: ArrayList
+  + parse(Context context): void
+}
+
+class CommandNode extends Node{
+  - node: Node
+  + parse(Context context): void
+}
+
+class RepeatCommandNode extends Node{
+  - number: int
+  - commandListNode: Node
+  + parse(Context context): void
+}
+
+class PrimitiveCommandNode extends Node{
+  - name: String
+  + parse(Context context): void
+}
+
+class Context{
+  - tokenizer: StringTokenizer
+  - currentToken: String
+  + Context(String text): void
+  + nextToken(): String
+  + skipToken(String token): void
+  + currentNumber(): int
+}
+
+class ParseException {
+  + ParseException(String msg): void
+}
+
+class Main {}
+
+Main -right-> Context: Creates
+Main -right-> Node: Uses
+ProgramNode --o Node
+RepeatCommandNode --o Node
+CommandListNode --o Node
+CommandNode --o Node
+@enduml
