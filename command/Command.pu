@@ -1,0 +1,45 @@
+@startuml Command
+interface Command {
+  + {abstract} execute(): void
+}
+
+class MacroCommand implements Command {
+  - commands: Stack
+  + execute(): void
+  + append(Command cmd): void
+  + undo(): void
+  + clear(): void
+}
+
+class DrawCommand implements Command {
+  # drawable: Drawable
+  - position: Point
+  + DrawCommand(Drawable drawable, Point position): void
+  + execute(): void
+}
+
+interface Drawable {
+  - {abstract}draw(): void
+}
+
+class DrawCanvas implements Drawable {
+  - color: Color
+  - radius: int
+  - history: MacroCommand
+  + DrawCanvas(int width, int height, MacroCommand history): void
+  + paint(Graphics g): void
+  + draw(int x,int y): void
+}
+
+class Main{
+  - history: MacroCommand
+  - canvas: DrawCanvas
+  - clearButton: JButton
+}
+
+Main -up-o DrawCanvas
+Main -up-o MacroCommand
+DrawCanvas -right-o MacroCommand
+DrawCommand --o Drawable
+MacroCommand --o Command
+@enduml
