@@ -1,0 +1,30 @@
+@startuml Proxy
+class Printer implements Printable {
+  - name: String
+  + Printer(): void 
+  + setPrinterName(String name): void 
+  + getPrinterName(String name): String
+  + print(String string): void
+}
+
+interface Printable {
+  + {abstract} setPrinterName(String name): void
+  + {abstract} getPrinterName(): String
+  + {abstract} print(String string): void
+}
+
+class PrinterProxy implements Printable {
+  - name: String
+  - real: Printer
+  + PrinterProxy(String name): void
+  + setPrinterName(String name): void
+  + getPrinterName(): String
+  + print(String string): void
+  - realize(): void
+}
+
+class Main{}
+
+Main -right-> Printable: Uses
+PrinterProxy -right-o Printer: Uses
+@enduml
